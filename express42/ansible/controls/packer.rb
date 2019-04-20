@@ -7,7 +7,7 @@ control 'packer' do
   impact 1
   title 'Run packer validate'
 
-  describe command('cd packer && find ./ ! -name "variables*.json" -name "*.json"  -type f -print0 | xargs -0 -n1 packer validate -var-file=variables.json.example') do
+  describe command('cd packer && find ./ ! -name "variables*.json" -name "*.json"  -depth 1 -type f -print0 | xargs -0 -n1 packer validate -var-file=variables.json.example') do
     its('stdout') { should_not match (/Template validation failed/) }
     its('stderr') { should eq '' }
   end
