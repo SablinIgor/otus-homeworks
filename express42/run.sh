@@ -7,7 +7,7 @@ DOCKER_IMAGE=express42/otus-homeworks
 echo "Clone repository with tests"
 git clone https://github.com/SablinIgor/otus-homeworks.git
 
-export ANSIBLE_CONFIG=$(find ./srv -not -path "*/roles/*" -name ansible.cfg)
+export ANSIBLE_CONFIG=$(find $(pwd) -not -path "*/roles/*" -name ansible.cfg)
 
 if [ -f $HOMEWORK_RUN ]; then
 	echo "Run tests with docker"
