@@ -12,7 +12,7 @@ control 'terraforn' do
   end
 
   describe command('cd terraform/stage && tflint') do
-    its('stdout') { should match (/Awesome!/) }
+    its('stdout') { should eq '' }
   end
 
   describe command('cd terraform/prod && terraform validate -var-file=terraform.tfvars.example -check-variables=true') do
@@ -20,6 +20,6 @@ control 'terraforn' do
   end
 
   describe command('cd terraform/prod && tflint') do
-    its('stdout') { should match (/Awesome!/) }
+    its('stdout') { should eq '' }
   end
 end
