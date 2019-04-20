@@ -10,4 +10,8 @@ control 'ansible' do
   describe command('find ./ansible/playbooks ! -name "inventory*.yml" -name "*.yml" -depth 1  -type f -print0 | xargs -0 -n1 ansible-playbook --syntax-check') do
     its('stderr') { should_not match (/The error appears to have been/) }
   end
+
+  describe command('find ./ansible/playbooks ! -name "inventory*.yml" -name "*.yml" -depth 1  -type f -print0 | xargs -0 -n1 ansible-lint --exclude=ansible/roles/jdauphant.nginx') do
+    its('stdout') { should eq '' }
+  end
 end
