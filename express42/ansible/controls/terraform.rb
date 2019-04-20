@@ -15,11 +15,11 @@ control 'terraforn' do
     its('stdout') { should match (/Awesome!/) }
   end
 
-  describe command('cd terraform/prod && tflint') do
+  describe command('cd terraform/prod && terraform validate -var-file=terraform.tfvars.example -check-variables=true') do
     its('stdout') { should_not match (/Error/) }
   end
 
-  describe command('cd terraform/prod && terraform validate -var-file=terraform.tfvars.example -check-variables=true') do
+  describe command('cd terraform/prod && tflint') do
     its('stdout') { should match (/Awesome!/) }
   end
 end
