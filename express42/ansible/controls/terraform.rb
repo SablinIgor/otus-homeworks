@@ -10,4 +10,8 @@ control 'terraforn' do
   describe command('cd terraform/stage && terraform validate -var-file=terraform.tfvars.example -check-variables=true') do
     its('stdout') { should_not match (/Error/) }
   end
+
+  describe command('cd terraform/prod && terraform validate -var-file=terraform.tfvars.example -check-variables=true') do
+    its('stdout') { should_not match (/Error/) }
+  end
 end
