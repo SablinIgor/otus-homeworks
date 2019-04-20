@@ -9,6 +9,5 @@ control 'ansible' do
 
   describe command('cd ansible && find ./ ! -name "inventory*.yml" -name "db*.yml" -type f -print0 | xargs -0 -n1 ansible-playbook --syntax-check') do
     its('stderr') { should_not match (/The error appears to have been/) }
-    its('exit_status') { should eq 0 }
   end
 end
