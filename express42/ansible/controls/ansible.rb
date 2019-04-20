@@ -7,7 +7,7 @@ control 'ansible' do
   impact 1
   title 'Run ansible validation'
 
-  describe command('cd ansible && find ./ ! -name "inventory*.yml" -name "db*.yml" -type f -print0 | xargs -0 -n1 ansible-playbook --syntax-check') do
+  describe command('find ./ansible/playbooks ! -name "inventory*.yml" -name "*.yml" -depth 1  -type f -print0 | xargs -0 -n1 ansible-playbook --syntax-check | xargs -0 -n1 ansible-playbook --syntax-check') do
     its('stderr') { should_not match (/The error appears to have been/) }
   end
 end
