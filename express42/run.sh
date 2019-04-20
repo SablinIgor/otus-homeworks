@@ -15,7 +15,7 @@ if [ -f $HOMEWORK_RUN ]; then
 		-e DOCKER_HOST=unix:///tmp/docker.sock --cap-add=NET_ADMIN -p 33433:22 --privileged \
 		--device /dev/net/tun --name hw-test --network hw-test-net $DOCKER_IMAGE
     # Show versions & run tests
-    docker exec hw-test $HOMEWORK_RUN
+    docker exec -e USER=appuser hw-test $HOMEWORK_RUN
 else
 	echo "We don't have tests for this homework"
 	exit 0
