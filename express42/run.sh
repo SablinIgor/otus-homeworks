@@ -7,6 +7,8 @@ DOCKER_IMAGE=express42/otus-homeworks
 echo "Clone repository with tests"
 git clone https://github.com/SablinIgor/otus-homeworks.git
 
+export ANSIBLE_CONFIG=$(find ./srv -not -path "*/roles/*" -name ansible.cfg)
+
 if [ -f $HOMEWORK_RUN ]; then
 	echo "Run tests with docker"
     # Prepare network & run container
@@ -15,7 +17,7 @@ if [ -f $HOMEWORK_RUN ]; then
 		-e DOCKER_HOST=unix:///tmp/docker.sock --cap-add=NET_ADMIN -p 33433:22 --privileged \
 		--device /dev/net/tun --name hw-test --network hw-test-net $DOCKER_IMAGE
     # Show versions & run tests
-    docker exec hw-test $HOMEWORK_RUN
+    docker exec -e ANSIBLE_CONFIG=$ANSIBLE_CONFIG hw-test $HOMEWORK_RUN
 else
 	echo "We don't have tests for this homework"
 	exit 0
